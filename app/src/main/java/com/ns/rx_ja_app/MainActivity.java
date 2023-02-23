@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ns.rx_ja_app.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
@@ -29,6 +32,11 @@ private static final String TAG = "RxAndroidSamples";
         mainBinding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
 
+        List<String> list=new ArrayList<>();
+        list.add("John");
+        list.add("Allen");
+
+
         Observable.just("A","Z","D","Y").subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DisposableObserver<String>() {
                     @Override
@@ -46,6 +54,7 @@ private static final String TAG = "RxAndroidSamples";
                         Log.d(TAG, "onComplete()");
                     }
                 });
+
         mainBinding.btnScheduler.setOnClickListener(v -> {
             onRunSchedulerClick();
         });
